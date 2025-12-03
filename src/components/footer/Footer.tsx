@@ -2,7 +2,7 @@ import { EnvelopeOpenIcon, GithubLogoIcon, LinkedinLogoIcon } from "@phosphor-ic
 
 function Footer() {
     return (
-        <footer className="w-full bg-white pt-10 pb-6 border-t-4 border-[#F7C7CC]">
+        <footer className="w-full bg-white pt-8 pb-6 border-t-4 border-[#F7C7CC]">
             <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
 
                 {/* ESQUERDA */}
