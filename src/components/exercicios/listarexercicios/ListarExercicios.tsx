@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SyncLoader } from "react-spinners";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { buscar } from "../../../services/Service";
@@ -75,6 +75,14 @@ function ListarExercicios() {
                                 ))
                             }
                     </div>
+                    <Link to="/cadastroexercicios" className="hover:text-emerald-600 hover:font-semibold cursor-pointer transition flex justify-center">
+                        <button
+                            className="rounded-full text-slate-50 bg-violet-400 hover:bg-violet-500 flex justify-center p-2 cursor-pointer my-8"
+                            type="submit"
+                        >
+                            Cadastrar Exercício
+                        </button>
+                    </Link>
                 </div>
             </div>
         </>

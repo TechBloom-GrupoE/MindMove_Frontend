@@ -82,12 +82,11 @@ function FormExercicios() {
         })
     }, [categoria])
 
-    function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
+    function atualizarEstado(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
         setExercicio({
             ...exercicio,
             [e.target.name]: e.target.value,
             categoria: categoria,
-            usuario: usuario,
         });
     }
 
@@ -142,11 +141,11 @@ function FormExercicios() {
 
     const carregandoCategoria = categoria.descricao === '';
 
-
+    console.log(JSON.stringify(exercicio));
     return (
         <div className="container flex flex-col mx-auto items-center">
             <h1 className="text-4xl text-center my-8">
-                 {id !== undefined ? 'Editar Exercício' : 'Cadastrar Exercício'}
+                {id !== undefined ? 'Editar Exercício' : 'Cadastrar Exercício'}
             </h1>
 
             <form className="flex flex-col w-1/2 gap-4"
@@ -171,37 +170,61 @@ function FormExercicios() {
                         name="descricao"
                         required
                         className="border-2 border-slate-700 rounded p-2"
-                         value={exercicio.descricao}
+                        value={exercicio.descricao}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                     />
                 </div>
                 <div className="flex flex-col gap-2">
+                    <label htmlFor="duracao">Duração do Exercício</label>
+                    <input
+                        type="number"
+                        placeholder="Duração"
+                        name="duracao"
+                        required
+                        className="border-2 border-slate-700 rounded p-2"
+                        value={exercicio.duracao}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                    />
+                </div>
+                {/* Aqui  */}
+                <label>
+                    Estímulo Sensorial:
+                    <select name='estimuloSensorial' value={exercicio.estimuloSensorial} onChange={(e: ChangeEvent<HTMLSelectElement>) => atualizarEstado(e)}>
+                        <option value="">Selecione...</option>
+                        <option value="baixo">Baixo</option>
+                        <option value="medio">Médio</option>
+                        <option value="alto">Alto</option>
+                    </select>
+                </label>
+               
+
+                <div className="flex flex-col gap-2">
                     <p>Categoria do Exercício</p>
-                    <select name="categoria" id="categoria" className='border p-2 border-slate-800 rounded' 
+                    <select name="categoria" id="categoria" className='border p-2 border-slate-800 rounded'
                         onChange={(e) => buscarCategoriaPorId(e.currentTarget.value)}
                     >
                         <option value="" selected disabled>Selecione uma categoria</option>
-                        
-                        {categoria.map((Categoria) => (
+
+                        {categorias.map((categoria) => (
                             <>
-                                <option value={Categoria.id} >{Categoria.descricao}</option>
+                                <option key={categoria.id} value={categoria.id} >{categoria.descricao}</option>
                             </>
                         ))}
 
                     </select>
                 </div>
-                <button 
-                    type='submit' 
+                <button
+                    type='submit'
                     className='rounded disabled:bg-slate-200 bg-indigo-400 hover:bg-indigo-800
                                text-white font-bold w-1/2 mx-auto py-2 flex justify-center'
-                               disabled={carregandoCategoria}
+                    disabled={carregandoCategoria}
                 >
-                    { isLoading ? 
-                            <ClipLoader 
-                                color="#ffffff" 
-                                size={24}
-                            /> : 
-                           <span>{id === undefined ? 'Cadastrar' : 'Atualizar'}</span>
+                    {isLoading ?
+                        <ClipLoader
+                            color="#ffffff"
+                            size={24}
+                        /> :
+                        <span>{id === undefined ? 'Cadastrar' : 'Atualizar'}</span>
                     }
 
                 </button>
