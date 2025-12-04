@@ -23,7 +23,7 @@ function Navbar({
         <div className="w-full flex justify-between items-center py-2 px-4 md:px-12">
 
           <div className="flex items-center">
-            <Link to="/">
+            <Link to="/home">
               <img src="https://ik.imagekit.io/dijdduf7u/Projeto%20Integrador/Imagem_do_WhatsApp_de_2025-10-23_as_20.05.56_f90a357b%20-%20Editado.png"
                 alt=""
                 className="w-18 hover:opacity-80 transition"
@@ -46,7 +46,7 @@ function Navbar({
               <Link to="" className="text-emerald-600 hover:text-emerald-900 hover:font-semibold cursor-pointer transition">
                 Exercícios
               </Link>
-              <Link to="" className="text-emerald-600 hover:text-emerald-900 hover:font-semibold cursor-pointer transition">
+              <Link to="/categorias" className="text-emerald-600 hover:text-emerald-900 hover:font-semibold cursor-pointer transition">
                 Categorias
               </Link>
               <Link to="" className="text-emerald-600 hover:text-emerald-900 hover:font-semibold cursor-pointer transition">
@@ -68,7 +68,7 @@ function Navbar({
             <Link to="" className="hover:text-emerald-600 hover:font-semibold cursor-pointer transition mt-6">
               Exercícios
             </Link>
-            <Link to="" className="hover:text-emerald-600 hover:font-semibold cursor-pointer transition">
+            <Link to="/categorias" className="hover:text-emerald-600 hover:font-semibold cursor-pointer transition">
               Categorias
             </Link>
             <Link to="" className="hover:text-emerald-600 hover:font-semibold cursor-pointer transition">
@@ -90,7 +90,7 @@ function Navbar({
       </header>
 
       {/* evita sobrepor conteúdo */}
-      <div className="pt-24"></div>
+      <div className="pt-22"></div>
     </>
   )
 }

@@ -1,8 +1,12 @@
+import { useState } from "react"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import Home from "./pages/home/Home"
-import Navbar from "./components/navbar/Navbar"
 import Footer from "./components/footer/Footer"
-import { useState } from "react";
+import Navbar from "./components/navbar/Navbar"
+import Home from "./pages/home/Home"
+import ListarCategorias from "./components/categorias/listarcategorias/ListarCategorias"
+import FormCategoria from "./components/categorias/formcategoria/FormCategoria"
+import DeletarCategoria from "./components/categorias/deletarcategoria/DeletarCategoria"
+
 
 function App() {
 
@@ -29,7 +33,10 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
-
+            <Route path='/categorias' element={<ListarCategorias />} />
+            <Route path="/cadastrarcategoria" element={<FormCategoria />} />
+            <Route path="/editarcategoria/:id" element={<FormCategoria />} />
+            <Route path="/deletarcategoria/:id" element={<DeletarCategoria />} />
           </Routes>
         </div>
 
