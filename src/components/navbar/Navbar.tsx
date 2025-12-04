@@ -43,7 +43,7 @@ function Navbar({
           {/* Menu para Desktop */}
           <nav className="hidden md:flex items-center gap-6 font-semibold">
             <div className="flex gap-4">
-              <Link to="" className="text-emerald-600 hover:text-emerald-900 hover:font-semibold cursor-pointer transition">
+              <Link to="/exercicios" className="text-emerald-600 hover:text-emerald-900 hover:font-semibold cursor-pointer transition">
                 Exercícios
               </Link>
               <Link to="" className="text-emerald-600 hover:text-emerald-900 hover:font-semibold cursor-pointer transition">
@@ -65,7 +65,7 @@ function Navbar({
             className="md:hidden bg-white w-full shadow-inner flex flex-col items-start px-6 pb-4 gap-3 text-lg font-semibold "
           >
 
-            <Link to="" className="hover:text-emerald-600 hover:font-semibold cursor-pointer transition mt-6">
+            <Link to="/exercicios" className="hover:text-emerald-600 hover:font-semibold cursor-pointer transition mt-6">
               Exercícios
             </Link>
             <Link to="" className="hover:text-emerald-600 hover:font-semibold cursor-pointer transition">

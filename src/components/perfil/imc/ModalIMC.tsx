@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { calcularIMC } from "../../../services/services";
+import { calcularIMC } from "../../../services/Service";
+
 
 type ModalIMCProps = {
     usuarioId: number;

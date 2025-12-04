@@ -40,3 +40,10 @@ export const atualizar = async (url: string, dados: Object, setDados: Function, 
 export const deletar = async (url: string, header: Object) => {
     await api.delete(url, header);
 }
+
+// ==================== CÁLCULO DE IMC ====================
+
+export const calcularIMC = async (url: string, dadosIMC: any) => {
+  const response = await api.post(url, dadosIMC)
+  return response.data
+}
