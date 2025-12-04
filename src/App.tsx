@@ -7,6 +7,8 @@ import { ToastContainer } from "react-toastify";
 import { AuthProvider } from "./contexts/AuthContext";
 import Login from "./pages/login/Login";
 import Cadastro from "./pages/cadastro/Cadastro";
+import Perfil from "./pages/perfil/Perfil";
+import AtualizarUsuario from "./pages/perfil/AtualizarUsuario";
 
 function App() {
 
@@ -36,6 +38,8 @@ function App() {
             <Route path="/" element={<Login />} />
             <Route path="/home" element={<Home />} />
             <Route path="/cadastrar" element={<Cadastro />} />
+            <Route path="/perfil" element={<Perfil />} />
+            <Route path="/atualizarusuario" element={<AtualizarUsuario />} />
           </Routes>
         </div>
 

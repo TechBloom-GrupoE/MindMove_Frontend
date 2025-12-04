@@ -1,6 +1,8 @@
-import { List, SignOut, SignOutIcon, User, UserCircle, X } from "@phosphor-icons/react"
-import { useRef } from "react";
-import { Link } from "react-router-dom"
+import { List, SignOutIcon, UserCircleIcon, X } from "@phosphor-icons/react"
+import { useContext, useRef, type ReactNode } from "react";
+import { Link, useNavigate } from "react-router-dom"
+import { AuthContext } from "../../contexts/AuthContext";
+import { ToastAlerta } from "../../utils/ToastAlerta";
 
 type MenuState = "closed" | "open";
 
@@ -17,8 +19,21 @@ function Navbar({
 
   const menuRef = useRef<HTMLDivElement>(null);
 
-  return (
-    <>
+  const navigate = useNavigate();
+
+	const { usuario, handleLogout } = useContext(AuthContext);
+
+	function logout(){
+		handleLogout();
+		ToastAlerta('O Usuário foi desconectado com sucesso!', "info");
+		navigate('/');
+	}
+
+  let component: ReactNode
+
+  if(usuario.token !== "") {
+    component = (
+      <>
       <header className="w-full bg-white shadow-sm fixed top-0 left-0 z-50">
         <div className="w-full flex justify-between items-center py-2 px-4 md:px-12">
 
@@ -52,8 +67,14 @@ function Navbar({
               <Link to="" className="text-emerald-600 hover:text-emerald-900 hover:font-semibold cursor-pointer transition">
                 Sobre nós
               </Link>
-              <User size={26} weight="bold" className="text-emerald-600 hover:text-emerald-900 transition" />
-              <SignOutIcon size={26} weight="bold" className="text-emerald-600 hover:text-emerald-900 transition" />
+              <Link to='/perfil'>
+                <UserCircleIcon size={26} weight="bold" className="text-emerald-600 hover:text-emerald-900 transition" />
+              </Link>
+              
+              <Link to='/' onClick={logout}>
+                <SignOutIcon size={26} weight="bold" className="text-emerald-600 hover:text-emerald-900 transition" />
+              </Link>
+              
             </div>
           </nav>
         </div >
@@ -77,20 +98,24 @@ function Navbar({
 
             <div className="flex items-center gap-4 mt-4">
               <Link to="/perfil">
-                <UserCircle size={35} weight="fill" />
+                <UserCircleIcon size={35} weight="fill" />
               </Link>
 
-              <Link to="/sair">
-                <SignOut size={25} weight="bold" />
+              <Link to="/" onClick={logout}>
+                <SignOutIcon size={25} weight="bold" />
               </Link>
             </div>
           </div>
         )}
 
       </header>
-
       {/* evita sobrepor conteúdo */}
       <div className="pt-24"></div>
+      </>
+    )}
+  return (
+    <>
+      {component}
     </>
   )
 }
