@@ -43,7 +43,7 @@ export const deletar = async (url: string, header: Object) => {
 
 // ==================== CÁLCULO DE IMC ====================
 
-export const calcularIMC = async (url: string, dadosIMC: any) => {
-  const response = await api.post(url, dadosIMC)
-  return response.data
-}
+export const calcularIMC = async (url: string, dadosIMC: any = {}, header: Object) => {
+  const response = await api.post(url, dadosIMC, header);
+  return response.data;
+};
