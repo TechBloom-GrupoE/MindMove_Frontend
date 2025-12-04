@@ -1,9 +1,8 @@
-import React from 'react'
 
 function Home() {
   return (
-    <div>Home
-        
+    <div>
+        <h1>HOME</h1>
     </div>
   )
 }

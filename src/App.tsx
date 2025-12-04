@@ -1,3 +1,4 @@
+
 import { useState } from "react"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Footer from "./components/footer/Footer"
@@ -46,4 +47,3 @@ function App() {
   )
 }
 export default App
-

@@ -7,4 +7,4 @@ export default interface Exercicio {
   duracao: number;
   estimuloSensorial: string;
   categoria: Categoria | null;
-}
+} 
