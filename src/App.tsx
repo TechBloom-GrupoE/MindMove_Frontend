@@ -12,6 +12,8 @@ import { ToastContainer } from "react-toastify"
 import Cadastro from "./pages/cadastro/Cadastro"
 import Login from "./pages/login/Login"
 
+import Perfil from "./pages/perfil/Perfil";
+import AtualizarUsuario from "./pages/perfil/AtualizarUsuario";
 
 function App() {
 
@@ -45,7 +47,9 @@ function App() {
                             <Route path="/editarcategoria/:id" element={<FormCategoria />} />
                             <Route path="/deletarcategoria/:id" element={<DeletarCategoria />} />
                             <Route path="/cadastrar" element={<Cadastro />} />
-                        </Routes>
+                          <Route path="/perfil" element={<Perfil />} />
+            <Route path="/atualizarusuario" element={<AtualizarUsuario />} />
+          </Routes>
                     </div>
 
                     <Footer />
