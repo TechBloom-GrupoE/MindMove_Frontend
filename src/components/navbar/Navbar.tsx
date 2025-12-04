@@ -64,9 +64,9 @@ function Navbar({
               <Link to="/categorias" className="text-emerald-600 hover:text-emerald-900 hover:font-semibold cursor-pointer transition">
                 Categorias
               </Link>
-              <a href="#secao-sobrenos" className="text-emerald-600 hover:text-emerald-900 hover:font-semibold cursor-pointer transition">
+              <Link to='/sobrenos' className="text-emerald-600 hover:text-emerald-900 hover:font-semibold cursor-pointer transition">
                 Sobre nós
-              </a>
+              </Link>
               <Link to='/perfil'>
                 <UserCircleIcon size={26} weight="bold" className="text-emerald-600 hover:text-emerald-900 transition" />
               </Link>

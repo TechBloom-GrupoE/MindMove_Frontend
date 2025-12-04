@@ -17,6 +17,7 @@ import AtualizarUsuario from "./pages/perfil/AtualizarUsuario";
 import ListarExercicios from "./components/exercicios/listarexercicios/ListarExercicios"
 import FormExercicios from "./components/exercicios/formexercicios/FormExercicios"
 import DeletarExercicios from "./components/exercicios/deletarexercicios/DeletarExercicios"
+import SobreNos from "./pages/sobrenos/SobreNos"
 
 
 function App() {
@@ -57,6 +58,7 @@ function App() {
                 <Route path="/deletarexercicio/:id" element={<DeletarExercicios />} />
                 <Route path="/perfil" element={<Perfil />} />
                 <Route path="/atualizarusuario" element={<AtualizarUsuario />} />
+                <Route path="/sobrenos" element={<SobreNos />} />
               </Routes>
             </div>
 
