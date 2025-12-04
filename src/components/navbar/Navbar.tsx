@@ -74,9 +74,9 @@ function Navbar({
               <Link to="/categorias" className="hover:text-emerald-600 hover:font-semibold cursor-pointer transition">
                 Categorias
               </Link>
-              <Link to="" className="hover:text-emerald-600 hover:font-semibold cursor-pointer transition">
+              <a href="#secao-sobrenos"className="hover:text-emerald-600 hover:font-semibold cursor-pointer transition">
                 Sobre nós
-              </Link>
+              </a>
 
               <div className="flex items-center gap-4 mt-4">
                 <Link to="/perfil">
