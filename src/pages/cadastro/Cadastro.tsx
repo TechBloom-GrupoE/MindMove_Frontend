@@ -4,8 +4,9 @@ import type Usuario from "../../models/Usuario";
 import { cadastrarUsuario } from "../../services/Service";
 import { ClipLoader } from "react-spinners";
 import { ToastAlerta } from "../../utils/ToastAlerta";
-import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
+import DatePicker from "react-datepicker"
+
 
 
 function Cadastro() {
