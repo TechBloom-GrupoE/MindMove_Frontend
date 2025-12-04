@@ -50,7 +50,7 @@ function ListarExercicios() {
         <>
 
             {isLoading && (
-                <div className="flex justify-center w-full my-8">
+                <div className="flex justify-center w-full my-8 ">
                     <SyncLoader
                         color="#312e81"
                         size={32}
@@ -58,17 +58,20 @@ function ListarExercicios() {
                 </div>
             )}
 
-            <div className="flex justify-center w-full my-4">
+            <div className="flex justify-center w-full py-4 bg-violet-100">
                 <div className="container flex flex-col">
+                    <div className="text-red-400 flex flex-col justify-center items-center">
+                        <h1 className="text-2xl lg:text-4xl font-bold pb-2">Navegue pelos Exercícios</h1>
+                        <p className="font-semibold text-lg pb-6">Explore as possibilidades e encontre o seu exercício ideal!</p>
+                    </div>
 
                     {(!isLoading && Exercicios.length === 0) && (
-                            <span className="text-3xl text-center my-8">
+                            <span className="text-3xl text-center my-8 text-red-400">
                                 Nenhum Exercício foi encontrado!
                             </span>
                     )}
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 
-                                    lg:grid-cols-3 gap-8 p-4">
+                    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-10 place-items-center">
                             {
                                 Exercicios.map((exercicio) => (
                                     <CardExercicios key={exercicio.id} exercicio={exercicio}/>

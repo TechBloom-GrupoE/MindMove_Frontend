@@ -5,6 +5,7 @@ import { buscar, deletar } from "../../../services/Service"
 import { ClipLoader } from "react-spinners"
 import { ToastAlerta } from "../../../utils/ToastAlerta"
 import type Exercicio from "../../../models/Exercicio"
+import { Check, X } from "@phosphor-icons/react"
 
 function DeletarExercicios() {
 
@@ -74,43 +75,51 @@ function DeletarExercicios() {
     }
     
     return (
-        <div className='container w-1/3 mx-auto'>
-            <h1 className='text-4xl text-center my-4'>Deletar Exercício</h1>
+        <div className='w-full min-h-[70vh] px-4 pt-6 mx-auto bg-red-100 justify-center flex'>
+            <div className="w-md flex flex-col  overflow-hidden justify-start">
+            <h1 className='py-4 text-3xl font-semibold text-center text-slate-800 md:text-4xl'>Deletar Exercício</h1>
 
-            <p className='text-center font-semibold mb-4'>
+            <p className='mb-4 text-base font-medium text-center text-slate-700 md:text-lg'>
                 Você tem certeza de que deseja apagar o exercício a seguir?
             </p>
 
-            <div className='border flex flex-col rounded-2xl overflow-hidden justify-between'>
+            <div className='border border-red-300 flex flex-col rounded-2xl overflow-hidden justify-between shadow-lg shadow-amber-400/50'>
                 <header 
-                    className='py-2 px-6 bg-indigo-600 text-white font-bold text-2xl'>
+                    className='py-2 px-6 text-slate-900 bg-white/85 text-center text-xl lg:text-2xl'>
                     Exercício
                 </header>
-                <div className="p-4">
-                    <p className='text-xl h-full'>{exercicio.nome}</p>
-                    <p>{exercicio.descricao}</p>
+                <div className="">
+                    <p className='p-4 text-xl text-slate-900 font-light lg:text-3xl text-center bg-white/85 h-full'>{exercicio.nome}</p>
                 </div>
                 <div className="flex">
-                    <button 
-                        className='text-slate-100 bg-red-400 hover:bg-red-600 w-full py-2'
-                        onClick={retornar}>
-                        Não
-                    </button>
-                    <button 
-                        className='w-full text-slate-100 bg-indigo-400 
-                        hover:bg-indigo-600 flex items-center justify-center'
-                        onClick={deletarExercicio}>
+                        <button
+                            className='text-slate-100 flex justify-center bg-red-200 hover:bg-red-400 w-full py-2'
+                            onClick={retornar}>
+                            <X
+                                width={40}
+                                color="#emerald-900"
+                                weight="bold"
+                            />
+                        </button>
+                        <button
+                            className=' text-slate-100 flex justify-center bg-emerald-200 hover:bg-emerald-400 w-full py-2'
+                            onClick={deletarExercicio}>
 
-                        { isLoading ? 
-                            <ClipLoader 
-                                color="#ffffff" 
-                                size={24}
-                            /> : 
-                            <span>Sim</span>
-                        }
-                        
-                    </button>
+                            {isLoading ?
+                                <ClipLoader
+                                    color="#ffffff"
+                                    size={24}
+                                /> :
+                                <span><Check
+                                    width={40}
+                                    color="#emerald-900"
+                                    weight="bold"
+                                /></span>
+                            }
+
+                        </button>
                 </div>
+            </div>
             </div>
         </div>
     )

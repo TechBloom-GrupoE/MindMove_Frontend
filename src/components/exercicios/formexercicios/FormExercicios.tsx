@@ -143,21 +143,23 @@ function FormExercicios() {
 
     console.log(JSON.stringify(exercicio));
     return (
-        <div className="container flex flex-col mx-auto items-center">
-            <h1 className="text-4xl text-center my-8">
-                {id !== undefined ? 'Editar Exercício' : 'Cadastrar Exercício'}
+        <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-linear-to-br from-teal-100 via-violet-200 to-red-200">
+           <div className="bg-white border border-teal-300 rounded-3xl
+                w-full max-w-2xl py-12 px-10 shadow-lg shadow-teal-700/30">
+            <h1 className="text-xl lg:text-3xl text-center mt-2 mb-6 font-semibold text-teal-900">
+                {id !== undefined ? 'Atualizar Exercício' : 'Cadastrar Exercício'}
             </h1>
 
-            <form className="flex flex-col w-1/2 gap-4"
+            <form className="flex flex-col gap-4"
                 onSubmit={gerarNovoExercicio}>
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2 text-teal-900">
                     <label htmlFor="nome">Nome do Exercício</label>
                     <input
                         type="text"
                         placeholder="Nome"
                         name="nome"
                         required
-                        className="border-2 border-slate-700 rounded p-2"
+                        className="border border-teal-700 rounded p-2"
                         value={exercicio.nome}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                     />
@@ -169,7 +171,7 @@ function FormExercicios() {
                         placeholder="Descrição"
                         name="descricao"
                         required
-                        className="border-2 border-slate-700 rounded p-2"
+                        className="border border-teal-700 rounded p-2"
                         value={exercicio.descricao}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                     />
@@ -181,26 +183,28 @@ function FormExercicios() {
                         placeholder="Duração"
                         name="duracao"
                         required
-                        className="border-2 border-slate-700 rounded p-2"
+                        className="border border-teal-700 rounded p-2"
                         value={exercicio.duracao}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                     />
                 </div>
                 {/* Aqui  */}
-                <label>
+                <label >
                     Estímulo Sensorial:
                     <select name='estimuloSensorial' value={exercicio.estimuloSensorial} onChange={(e: ChangeEvent<HTMLSelectElement>) => atualizarEstado(e)}>
+                       <div className="bg-white border border-teal-300 rounded p-2">
                         <option value="">Selecione...</option>
                         <option value="baixo">Baixo</option>
                         <option value="medio">Médio</option>
                         <option value="alto">Alto</option>
+                        </div>
                     </select>
                 </label>
                
 
                 <div className="flex flex-col gap-2">
                     <p>Categoria do Exercício</p>
-                    <select name="categoria" id="categoria" className='border p-2 border-slate-800 rounded'
+                    <select name="categoria" id="categoria" className='border border-teal-700 rounded p-2'
                         onChange={(e) => buscarCategoriaPorId(e.currentTarget.value)}
                     >
                         <option value="" selected disabled>Selecione uma categoria</option>
@@ -213,10 +217,10 @@ function FormExercicios() {
 
                     </select>
                 </div>
-                <button
-                    type='submit'
-                    className='rounded disabled:bg-slate-200 bg-indigo-400 hover:bg-indigo-800
+                <button className='rounded disabled:bg-slate-200 bg-indigo-400 hover:bg-indigo-800
                                text-white font-bold w-1/2 mx-auto py-2 flex justify-center'
+                    type='submit'
+                    
                     disabled={carregandoCategoria}
                 >
                     {isLoading ?
@@ -229,6 +233,7 @@ function FormExercicios() {
 
                 </button>
             </form>
+            </div>
         </div>
     );
 }
