@@ -1,8 +1,16 @@
 import { EnvelopeOpenIcon, GithubLogoIcon, LinkedinLogoIcon } from "@phosphor-icons/react";
+import { useContext, type ReactNode } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
 
 function Footer() {
-    return (
-        <footer className="w-full bg-white pt-8 pb-6 border-t-4 border-[#F7C7CC]">
+    const { usuario } = useContext(AuthContext);
+
+	let component: ReactNode
+
+	if (usuario.token !== ""){
+        component = (
+                    <>
+            <footer className="w-full bg-white pt-8 pb-6 border-t-4 border-[#F7C7CC]">
             <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
 
                 {/* ESQUERDA */}
@@ -50,6 +58,13 @@ function Footer() {
 
             </div>
         </footer>
+     </>
+    )}
+
+    return (
+        <>
+            {component}
+        </>
     );
 }
 

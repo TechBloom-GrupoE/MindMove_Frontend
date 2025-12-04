@@ -1,6 +1,8 @@
-import { List, SignOut, SignOutIcon, User, UserCircle, X } from "@phosphor-icons/react"
-import { useRef } from "react";
-import { Link } from "react-router-dom"
+import { List, SignOut, SignOutIcon, UserCircleIcon, X } from "@phosphor-icons/react"
+import { useContext, useRef, type ReactNode } from "react";
+import { Link, useNavigate } from "react-router-dom"
+import { AuthContext } from "../../contexts/AuthContext";
+import { ToastAlerta } from "../../utils/ToastAlerta";
 
 type MenuState = "closed" | "open";
 
@@ -17,13 +19,26 @@ function Navbar({
 
   const menuRef = useRef<HTMLDivElement>(null);
 
-  return (
-    <>
+  const navigate = useNavigate();
+
+	const { usuario, handleLogout } = useContext(AuthContext);
+
+	function logout(){
+		handleLogout();
+		ToastAlerta('O Usuário foi desconectado com sucesso!', "info");
+		navigate('/');
+	}
+
+  let component: ReactNode
+
+  if(usuario.token !== "") {
+    component = (
+      <>
       <header className="w-full bg-white shadow-sm fixed top-0 left-0 z-50">
         <div className="w-full flex justify-between items-center py-2 px-4 md:px-12">
 
           <div className="flex items-center">
-            <Link to="/">
+            <Link to="/home">
               <img src="https://ik.imagekit.io/dijdduf7u/Projeto%20Integrador/Imagem_do_WhatsApp_de_2025-10-23_as_20.05.56_f90a357b%20-%20Editado.png"
                 alt=""
                 className="w-18 hover:opacity-80 transition"
@@ -46,51 +61,64 @@ function Navbar({
               <Link to="/exercicios" className="text-emerald-600 hover:text-emerald-900 hover:font-semibold cursor-pointer transition">
                 Exercícios
               </Link>
-              <Link to="" className="text-emerald-600 hover:text-emerald-900 hover:font-semibold cursor-pointer transition">
+              <Link to="/categorias" className="text-emerald-600 hover:text-emerald-900 hover:font-semibold cursor-pointer transition">
                 Categorias
               </Link>
-              <Link to="" className="text-emerald-600 hover:text-emerald-900 hover:font-semibold cursor-pointer transition">
+              <a href="#secao-sobrenos" className="text-emerald-600 hover:text-emerald-900 hover:font-semibold cursor-pointer transition">
                 Sobre nós
+              </a>
+              <Link to='/perfil'>
+                <UserCircleIcon size={26} weight="bold" className="text-emerald-600 hover:text-emerald-900 transition" />
               </Link>
-              <User size={26} weight="bold" className="text-emerald-600 hover:text-emerald-900 transition" />
-              <SignOutIcon size={26} weight="bold" className="text-emerald-600 hover:text-emerald-900 transition" />
+              
+              <Link to='/' onClick={logout}>
+                <SignOutIcon size={26} weight="bold" className="text-emerald-600 hover:text-emerald-900 transition" />
+              </Link>
+              
             </div>
           </nav>
         </div >
 
         {/* MENU MOBILE */}
-        {menuState === "open" && (
-          <div
-            ref={menuRef}
-            className="md:hidden bg-white w-full shadow-inner flex flex-col items-start px-6 pb-4 gap-3 text-lg font-semibold "
-          >
+        {
+          menuState === "open" && (
+            <div
+              ref={menuRef}
+              className="md:hidden bg-white w-full shadow-inner flex flex-col items-start px-6 pb-4 gap-3 text-lg font-semibold "
+            >
 
-            <Link to="/exercicios" className="hover:text-emerald-600 hover:font-semibold cursor-pointer transition mt-6">
-              Exercícios
-            </Link>
-            <Link to="" className="hover:text-emerald-600 hover:font-semibold cursor-pointer transition">
-              Categorias
-            </Link>
-            <Link to="" className="hover:text-emerald-600 hover:font-semibold cursor-pointer transition">
-              Sobre nós
-            </Link>
+              <Link to="" className="hover:text-emerald-600 hover:font-semibold cursor-pointer transition mt-6">
+                Exercícios
+              </Link>
+              <Link to="/categorias" className="hover:text-emerald-600 hover:font-semibold cursor-pointer transition">
+                Categorias
+              </Link>
+              <a href="#secao-sobrenos"className="hover:text-emerald-600 hover:font-semibold cursor-pointer transition">
+                Sobre nós
+              </a>
 
             <div className="flex items-center gap-4 mt-4">
               <Link to="/perfil">
-                <UserCircle size={35} weight="fill" />
+                <UserCircleIcon size={35} weight="fill" />
               </Link>
 
-              <Link to="/sair">
-                <SignOut size={25} weight="bold" />
-              </Link>
+                <Link to="/sair">
+                  <SignOut size={25} weight="bold" />
+                </Link>
+              </div>
             </div>
-          </div>
-        )}
+          )
+        }
 
-      </header>
+      </header >
 
       {/* evita sobrepor conteúdo */}
       <div className="pt-24"></div>
+      </>
+    )}
+  return (
+    <>
+      {component}
     </>
   )
 }
