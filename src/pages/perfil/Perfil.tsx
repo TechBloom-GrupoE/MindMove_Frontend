@@ -1,14 +1,25 @@
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-
 import { AuthContext } from "../../contexts/AuthContext"
 import { ToastAlerta } from "../../utils/ToastAlerta"
-import { EnvelopeIcon, UserCircleIcon } from "@phosphor-icons/react"
+import {CalendarIcon, BarbellIcon, EnvelopeIcon, UserCircleIcon, RulerIcon, BrainIcon } from "@phosphor-icons/react"
+import { buscar } from "../../services/Service"
 
 function Perfil() {
 	const navigate = useNavigate()
 
 	const { usuario } = useContext(AuthContext)
+  const [dadosCompletos, setDadosCompletos] = useState<any>({})
+
+  useEffect(() => {
+    if (usuario.id !== 0) {
+      buscar(`/usuarios/${usuario.id}`, setDadosCompletos, {
+        headers: {
+          Authorization: usuario.token
+        }
+      })
+    }
+  }, [usuario.id])
 
 	useEffect(() => {
 		if (usuario.token === "") {
@@ -17,6 +28,9 @@ function Perfil() {
 		}
 	}, [usuario.token])
 
+	function formatarDataBrasileira(dataISO: string) {
+  return new Date(dataISO).toLocaleDateString("pt-BR", { timeZone: "UTC" });
+}
 	return (
 		<div className="flex justify-center items-center min-h-screen w-full bg-amber-100 px-4">
 			<div className="container mx-auto my-4 rounded-2xl overflow-hidden bg-white shadow-lg
@@ -28,12 +42,20 @@ function Perfil() {
 					src={usuario.foto}
 					alt={`Foto de perfil de ${usuario.nome}`}
 				/>
-        <div className="flex flex-col items-left">
+        <div className="flex flex-col items-left gap-3">
           <p className="text-left mt-6 text-lg font-medium flex items-center gap-2">
           <UserCircleIcon
-          size={26}/>{usuario.nome} </p>
+          size={26}/>{dadosCompletos.nome} </p>
 					<p className="text-center text-lg font-medium flex items-center gap-2"><EnvelopeIcon
-          size={26}/>{usuario.usuario}</p>
+          size={26}/>{dadosCompletos.usuario}</p>
+					<p className="text-center text-lg font-medium flex items-center gap-2"><BrainIcon
+          size={26}/>{dadosCompletos.perfil}</p>
+					<p className="text-center text-lg font-medium flex items-center gap-2"><CalendarIcon
+          size={26}/>{formatarDataBrasileira(dadosCompletos.data_nasc)}</p>
+					<p className="text-center text-lg font-medium flex items-center gap-2"><RulerIcon
+          size={26}/>{dadosCompletos.altura} M</p>
+					<p className="text-center text-lg font-medium flex items-center gap-2"><BarbellIcon
+          size={26}/>{dadosCompletos.peso} KG</p>
         </div>
 					
 				
