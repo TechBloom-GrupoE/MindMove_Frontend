@@ -1,4 +1,5 @@
 import type Categoria from "./Categoria";
+import type Usuario from "./Usuario";
 
 export default interface Exercicio {
   id: number;
@@ -7,4 +8,5 @@ export default interface Exercicio {
   duracao: number;
   estimuloSensorial: string;
   categoria: Categoria | null;
+  usuario: Usuario | null;
 } 

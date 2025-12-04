@@ -1,53 +1,69 @@
+
+import { useState } from "react"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import Home from "./pages/home/Home"
-import Navbar from "./components/navbar/Navbar"
 import Footer from "./components/footer/Footer"
-import { useState } from "react";
-import { ToastContainer } from "react-toastify";
-import { AuthProvider } from "./contexts/AuthContext";
-import Login from "./pages/login/Login";
-import Cadastro from "./pages/cadastro/Cadastro";
+import Navbar from "./components/navbar/Navbar"
+import Home from "./pages/home/Home"
+import ListarCategorias from "./components/categorias/listarcategorias/ListarCategorias"
+import FormCategoria from "./components/categorias/formcategoria/FormCategoria"
+import DeletarCategoria from "./components/categorias/deletarcategoria/DeletarCategoria"
+import { AuthProvider } from "./contexts/AuthContext"
+import { ToastContainer } from "react-toastify"
+import Cadastro from "./pages/cadastro/Cadastro"
+import Login from "./pages/login/Login"
+
 import Perfil from "./pages/perfil/Perfil";
 import AtualizarUsuario from "./pages/perfil/AtualizarUsuario";
+import ListarExercicios from "./components/exercicios/listarexercicios/ListarExercicios"
+import FormExercicios from "./components/exercicios/formexercicios/FormExercicios"
+import DeletarExercicios from "./components/exercicios/deletarexercicios/DeletarExercicios"
+
 
 function App() {
 
-  const [menuState, setMenuState] = useState<'closed' | 'open'>('closed');
+    const [menuState, setMenuState] = useState<'closed' | 'open'>('closed');
 
-  const handleMenuToggle = () => {
-    setMenuState(menuState === 'open' ? 'closed' : 'open');
-  };
+    const handleMenuToggle = () => {
+        setMenuState(menuState === 'open' ? 'closed' : 'open');
+    };
 
-  const handleMenuClose = () => {
-    setMenuState('closed');
-  };
+    const handleMenuClose = () => {
+        setMenuState('closed');
+    };
 
-  return (
-    <>
-    <AuthProvider>
-      <ToastContainer />
-      <BrowserRouter>
-        <Navbar
-          menuState={menuState}
-          onMenuToggle={handleMenuToggle}
-          onMenuClose={handleMenuClose}
-        />
+    return (
+      <>
+        <AuthProvider>
+          <ToastContainer />
+          <BrowserRouter>
+            <Navbar
+              menuState={menuState}
+              onMenuToggle={handleMenuToggle}
+              onMenuClose={handleMenuClose}
+            />
 
-        <div>
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/cadastrar" element={<Cadastro />} />
-            <Route path="/perfil" element={<Perfil />} />
-            <Route path="/atualizarusuario" element={<AtualizarUsuario />} />
-          </Routes>
-        </div>
+            <div>
+              <Routes>
+                <Route path="/" element={<Login />} />
+                <Route path="/home" element={<Home />} />
+                <Route path='/categorias' element={<ListarCategorias />} />
+                <Route path="/cadastrarcategoria" element={<FormCategoria />} />
+                <Route path="/editarcategoria/:id" element={<FormCategoria />} />
+                <Route path="/deletarcategoria/:id" element={<DeletarCategoria />} />
+                <Route path="/cadastrar" element={<Cadastro />} />
+                <Route path="/exercicios" element={<ListarExercicios />} />
+                <Route path="/cadastroexercicios" element={<FormExercicios />} />
+                <Route path="/editarexercicio/:id" element={<FormExercicios />} />
+                <Route path="/deletarexercicio/:id" element={<DeletarExercicios />} />
+                <Route path="/perfil" element={<Perfil />} />
+                <Route path="/atualizarusuario" element={<AtualizarUsuario />} />
+              </Routes>
+            </div>
 
-        <Footer />
-      </BrowserRouter>
-      </AuthProvider>
-    </>
-  )
+            <Footer />
+          </BrowserRouter>
+        </AuthProvider>
+        </>
+    )
 }
 export default App
-

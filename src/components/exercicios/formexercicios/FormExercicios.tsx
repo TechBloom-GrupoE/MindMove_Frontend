@@ -1,0 +1,236 @@
+import { useContext, useEffect, useState, type ChangeEvent, type FormEvent } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
+import { AuthContext } from "../../../contexts/AuthContext";
+import { atualizar, buscar, cadastrar } from "../../../services/Service";
+import { ToastAlerta } from "../../../utils/ToastAlerta";
+import type Categoria from "../../../models/Categoria";
+import type Exercicio from "../../../models/Exercicio";
+
+function FormExercicios() {
+
+    const navigate = useNavigate();
+
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+
+    const [categorias, setCategorias] = useState<Categoria[]>([])
+
+    const [categoria, setCategoria] = useState<Categoria>({ id: 0, descricao: '', icone: '', perfilRelacionado: '' })
+
+    const [exercicio, setExercicio] = useState<Exercicio>({} as Exercicio)
+
+    const { usuario, handleLogout } = useContext(AuthContext)
+    const token = usuario.token
+
+    const { id } = useParams<{ id: string }>()
+
+    async function buscarExercicioPorId(id: string) {
+        try {
+            await buscar(`/exercicios/${id}`, setExercicio, {
+                headers: { Authorization: token }
+            })
+        } catch (error: any) {
+            if (error.toString().includes('401')) {
+                handleLogout()
+            }
+        }
+    }
+
+    async function buscarCategoriaPorId(id: string) {
+        try {
+            await buscar(`/categorias/${id}`, setCategoria, {
+                headers: { Authorization: token }
+            })
+        } catch (error: any) {
+            if (error.toString().includes('401')) {
+                handleLogout()
+            }
+        }
+    }
+
+    async function buscarCategorias() {
+        try {
+            await buscar('/categorias', setCategorias, {
+                headers: { Authorization: token }
+            })
+        } catch (error: any) {
+            if (error.toString().includes('401')) {
+                handleLogout()
+            }
+        }
+    }
+
+    useEffect(() => {
+        if (token === '') {
+            ToastAlerta('Você precisa estar logado!', 'erro');
+            navigate('/');
+        }
+    }, [token])
+
+    useEffect(() => {
+        buscarCategorias()
+
+        if (id !== undefined) {
+            buscarExercicioPorId(id)
+        }
+    }, [id])
+
+    useEffect(() => {
+        setExercicio({
+            ...exercicio,
+            categoria: categoria,
+        })
+    }, [categoria])
+
+    function atualizarEstado(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
+        setExercicio({
+            ...exercicio,
+            [e.target.name]: e.target.value,
+            categoria: categoria,
+        });
+    }
+
+    function retornar() {
+        navigate('/exercicios');
+    }
+
+    async function gerarNovoExercicio(e: FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+        setIsLoading(true)
+
+        if (id !== undefined) {
+            try {
+                await atualizar(`/exercicios/${id}`, exercicio, setExercicio, {
+                    headers: {
+                        Authorization: token,
+                    },
+                });
+
+                ToastAlerta('Exercício atualizado com sucesso', 'sucesso');
+
+            } catch (error: any) {
+                if (error.toString().includes('401')) {
+                    handleLogout()
+                } else {
+                    ToastAlerta('Erro ao atualizar o Exercício', 'erro')
+                }
+            }
+
+        } else {
+            try {
+                await cadastrar(`/exercicios`, exercicio, setExercicio, {
+                    headers: {
+                        Authorization: token,
+                    },
+                })
+
+                ToastAlerta('Exercício cadastrado com sucesso', 'sucesso');
+
+            } catch (error: any) {
+                if (error.toString().includes('401')) {
+                    handleLogout()
+                } else {
+                    ToastAlerta('Erro ao cadastrar o Exercício', 'erro');
+                }
+            }
+        }
+
+        setIsLoading(false)
+        retornar()
+    }
+
+    const carregandoCategoria = categoria.descricao === '';
+
+    console.log(JSON.stringify(exercicio));
+    return (
+        <div className="container flex flex-col mx-auto items-center">
+            <h1 className="text-4xl text-center my-8">
+                {id !== undefined ? 'Editar Exercício' : 'Cadastrar Exercício'}
+            </h1>
+
+            <form className="flex flex-col w-1/2 gap-4"
+                onSubmit={gerarNovoExercicio}>
+                <div className="flex flex-col gap-2">
+                    <label htmlFor="nome">Nome do Exercício</label>
+                    <input
+                        type="text"
+                        placeholder="Nome"
+                        name="nome"
+                        required
+                        className="border-2 border-slate-700 rounded p-2"
+                        value={exercicio.nome}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                    />
+                </div>
+                <div className="flex flex-col gap-2">
+                    <label htmlFor="descricao">Descição do Exercício</label>
+                    <input
+                        type="text"
+                        placeholder="Descrição"
+                        name="descricao"
+                        required
+                        className="border-2 border-slate-700 rounded p-2"
+                        value={exercicio.descricao}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                    />
+                </div>
+                <div className="flex flex-col gap-2">
+                    <label htmlFor="duracao">Duração do Exercício</label>
+                    <input
+                        type="number"
+                        placeholder="Duração"
+                        name="duracao"
+                        required
+                        className="border-2 border-slate-700 rounded p-2"
+                        value={exercicio.duracao}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                    />
+                </div>
+                {/* Aqui  */}
+                <label>
+                    Estímulo Sensorial:
+                    <select name='estimuloSensorial' value={exercicio.estimuloSensorial} onChange={(e: ChangeEvent<HTMLSelectElement>) => atualizarEstado(e)}>
+                        <option value="">Selecione...</option>
+                        <option value="baixo">Baixo</option>
+                        <option value="medio">Médio</option>
+                        <option value="alto">Alto</option>
+                    </select>
+                </label>
+               
+
+                <div className="flex flex-col gap-2">
+                    <p>Categoria do Exercício</p>
+                    <select name="categoria" id="categoria" className='border p-2 border-slate-800 rounded'
+                        onChange={(e) => buscarCategoriaPorId(e.currentTarget.value)}
+                    >
+                        <option value="" selected disabled>Selecione uma categoria</option>
+
+                        {categorias.map((categoria) => (
+                            <>
+                                <option key={categoria.id} value={categoria.id} >{categoria.descricao}</option>
+                            </>
+                        ))}
+
+                    </select>
+                </div>
+                <button
+                    type='submit'
+                    className='rounded disabled:bg-slate-200 bg-indigo-400 hover:bg-indigo-800
+                               text-white font-bold w-1/2 mx-auto py-2 flex justify-center'
+                    disabled={carregandoCategoria}
+                >
+                    {isLoading ?
+                        <ClipLoader
+                            color="#ffffff"
+                            size={24}
+                        /> :
+                        <span>{id === undefined ? 'Cadastrar' : 'Atualizar'}</span>
+                    }
+
+                </button>
+            </form>
+        </div>
+    );
+}
+
+export default FormExercicios;

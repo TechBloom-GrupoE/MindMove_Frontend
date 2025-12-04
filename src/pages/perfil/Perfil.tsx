@@ -58,13 +58,15 @@ function Perfil() {
           size={26}/>{dadosCompletos.peso} KG</p>
         </div>
 					
-				
+				<div>
 					{/* Botão de editar */}
 					<Link to={`/atualizarusuario`} className="mt-8 w-full">
-						<button className="w-full bg-linear-to-r from-violet-400 to-violet-400 hover:from-violet-400 hover:to-violet-500 text-black text-lg font-bold font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2">
+						<button className="w-full bg-linear-to-r from-violet-400 to-violet-400 hover:from-violet-400 hover:to-violet-500 text-black text-lg  px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2">
 							Editar Perfil
 						</button>
 					</Link>
+
+					</div>
 				</div>
 			</div>
 	)
