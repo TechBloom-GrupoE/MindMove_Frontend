@@ -4,6 +4,8 @@ import { useState, useEffect, useContext } from 'react';
 import type Categoria from '../../../models/Categoria';
 import { SyncLoader } from 'react-spinners';
 import { buscar } from '../../../services/Service';
+import { AuthContext } from '../../../contexts/AuthContext';
+import { ToastAlerta } from '../../../utils/ToastAlerta';
 
 function ListarCategorias() {
 
@@ -12,34 +14,34 @@ function ListarCategorias() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [categorias, setCategorias] = useState<Categoria[]>([]);
 
-    // const { usuario, handleLogout } = useContext(AuthContext)
-    // const token = usuario.token
-
-    // useEffect(() => {
-    //     if (token === '') {
-    //         alert('Você precisa estar logado!')
-    //         navigate('/')
-    //     }
-    // }, [token])
+    const { usuario, handleLogout } = useContext(AuthContext)
+    const token = usuario.token
 
     useEffect(() => {
+        if (token === '') {
+            ToastAlerta('Você precisa estar logado!', 'info');
+            navigate('/');
+            return;
+        }
+
         buscarCategorias();
-    }, [categorias.length]);
+    }, [token]);
 
     async function buscarCategorias() {
         try {
             setIsLoading(true);
             await buscar("/categorias", setCategorias, {
-                // headers: { Authorization: token }
+                headers: { Authorization: token }
             });
         } catch (error: any) {
             if (error.toString().includes('401')) {
-                // handleLogout()
+                handleLogout();
             }
         } finally {
             setIsLoading(false);
         }
     }
+
 
     return (
         <>
@@ -65,7 +67,7 @@ function ListarCategorias() {
                         </span>
                     )}
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 place-items-center">
                         {
                             categorias.map((categoria) => (
                                 <CardCategorias key={categoria.id} categoria={categoria} />
@@ -75,7 +77,7 @@ function ListarCategorias() {
 
                     <Link to="/cadastrarcategoria" className="hover:text-emerald-600 hover:font-semibold cursor-pointer transition flex justify-center">
                         <button
-                            className="rounded-full text-slate-50 bg-violet-400 hover:bg-violet-500 flex justify-center p-2 cursor-pointer"
+                            className="rounded-full text-slate-50 bg-violet-400 hover:bg-violet-500 flex justify-center p-2 cursor-pointer my-8"
                             type="submit"
                         >
                             Cadastrar Categoria

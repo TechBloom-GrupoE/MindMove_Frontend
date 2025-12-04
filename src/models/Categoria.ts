@@ -4,6 +4,6 @@ export default interface Categoria {
   id: number;
   descricao: string;
   icone: string;
-  perfil_relacionado: string;
+  perfilRelacionado: string;
   exercicios?: Exercicio[] | null;
 }

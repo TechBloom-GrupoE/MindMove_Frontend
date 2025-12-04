@@ -7,43 +7,51 @@ import Home from "./pages/home/Home"
 import ListarCategorias from "./components/categorias/listarcategorias/ListarCategorias"
 import FormCategoria from "./components/categorias/formcategoria/FormCategoria"
 import DeletarCategoria from "./components/categorias/deletarcategoria/DeletarCategoria"
+import { AuthProvider } from "./contexts/AuthContext"
+import { ToastContainer } from "react-toastify"
+import Cadastro from "./pages/cadastro/Cadastro"
+import Login from "./pages/login/Login"
 
 
 function App() {
 
-  const [menuState, setMenuState] = useState<'closed' | 'open'>('closed');
+    const [menuState, setMenuState] = useState<'closed' | 'open'>('closed');
 
-  const handleMenuToggle = () => {
-    setMenuState(menuState === 'open' ? 'closed' : 'open');
-  };
+    const handleMenuToggle = () => {
+        setMenuState(menuState === 'open' ? 'closed' : 'open');
+    };
 
-  const handleMenuClose = () => {
-    setMenuState('closed');
-  };
+    const handleMenuClose = () => {
+        setMenuState('closed');
+    };
 
-  return (
-    <>
-      <BrowserRouter>
-        <Navbar
-          menuState={menuState}
-          onMenuToggle={handleMenuToggle}
-          onMenuClose={handleMenuClose}
-        />
+    return (
+        <>
+            <AuthProvider>
+                <ToastContainer />
+                <BrowserRouter>
+                    <Navbar
+                        menuState={menuState}
+                        onMenuToggle={handleMenuToggle}
+                        onMenuClose={handleMenuClose}
+                    />
 
-        <div>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
-            <Route path='/categorias' element={<ListarCategorias />} />
-            <Route path="/cadastrarcategoria" element={<FormCategoria />} />
-            <Route path="/editarcategoria/:id" element={<FormCategoria />} />
-            <Route path="/deletarcategoria/:id" element={<DeletarCategoria />} />
-          </Routes>
-        </div>
+                    <div>
+                        <Routes>
+                            <Route path="/" element={<Login />} />
+                            <Route path="/home" element={<Home />} />
+                            <Route path='/categorias' element={<ListarCategorias />} />
+                            <Route path="/cadastrarcategoria" element={<FormCategoria />} />
+                            <Route path="/editarcategoria/:id" element={<FormCategoria />} />
+                            <Route path="/deletarcategoria/:id" element={<DeletarCategoria />} />
+                            <Route path="/cadastrar" element={<Cadastro />} />
+                        </Routes>
+                    </div>
 
-        <Footer />
-      </BrowserRouter>
-    </>
-  )
+                    <Footer />
+                </BrowserRouter>
+            </AuthProvider>
+        </>
+    )
 }
 export default App

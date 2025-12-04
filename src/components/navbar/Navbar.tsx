@@ -52,45 +52,49 @@ function Navbar({
               <Link to="" className="text-emerald-600 hover:text-emerald-900 hover:font-semibold cursor-pointer transition">
                 Sobre nós
               </Link>
-              <User size={26} weight="bold" className="text-emerald-600 hover:text-emerald-900 transition" />
+              <Link to="/cadastrar">
+                <User size={26} weight="bold" className="text-emerald-600 hover:text-emerald-900 transition" />
+              </Link>
               <SignOutIcon size={26} weight="bold" className="text-emerald-600 hover:text-emerald-900 transition" />
             </div>
           </nav>
         </div >
 
         {/* MENU MOBILE */}
-        {menuState === "open" && (
-          <div
-            ref={menuRef}
-            className="md:hidden bg-white w-full shadow-inner flex flex-col items-start px-6 pb-4 gap-3 text-lg font-semibold "
-          >
+        {
+          menuState === "open" && (
+            <div
+              ref={menuRef}
+              className="md:hidden bg-white w-full shadow-inner flex flex-col items-start px-6 pb-4 gap-3 text-lg font-semibold "
+            >
 
-            <Link to="" className="hover:text-emerald-600 hover:font-semibold cursor-pointer transition mt-6">
-              Exercícios
-            </Link>
-            <Link to="/categorias" className="hover:text-emerald-600 hover:font-semibold cursor-pointer transition">
-              Categorias
-            </Link>
-            <Link to="" className="hover:text-emerald-600 hover:font-semibold cursor-pointer transition">
-              Sobre nós
-            </Link>
-
-            <div className="flex items-center gap-4 mt-4">
-              <Link to="/perfil">
-                <UserCircle size={35} weight="fill" />
+              <Link to="" className="hover:text-emerald-600 hover:font-semibold cursor-pointer transition mt-6">
+                Exercícios
+              </Link>
+              <Link to="/categorias" className="hover:text-emerald-600 hover:font-semibold cursor-pointer transition">
+                Categorias
+              </Link>
+              <Link to="" className="hover:text-emerald-600 hover:font-semibold cursor-pointer transition">
+                Sobre nós
               </Link>
 
-              <Link to="/sair">
-                <SignOut size={25} weight="bold" />
-              </Link>
+              <div className="flex items-center gap-4 mt-4">
+                <Link to="/perfil">
+                  <UserCircle size={35} weight="fill" />
+                </Link>
+
+                <Link to="/sair">
+                  <SignOut size={25} weight="bold" />
+                </Link>
+              </div>
             </div>
-          </div>
-        )}
+          )
+        }
 
-      </header>
+      </header >
 
       {/* evita sobrepor conteúdo */}
-      <div className="pt-22"></div>
+      < div className="pt-22" ></div >
     </>
   )
 }
