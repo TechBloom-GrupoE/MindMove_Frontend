@@ -100,7 +100,7 @@ function FormExercicios() {
 
         if (id !== undefined) {
             try {
-                await atualizar(`/exercicios/${id}`, exercicio, setExercicio, {
+                await atualizar(`/exercicios`, exercicio, setExercicio, {
                     headers: {
                         Authorization: token,
                     },
@@ -190,14 +190,17 @@ function FormExercicios() {
                 </div>
                 {/* Aqui  */}
                 <label >
-                    Estímulo Sensorial:
-                    <select name='estimuloSensorial' value={exercicio.estimuloSensorial} onChange={(e: ChangeEvent<HTMLSelectElement>) => atualizarEstado(e)}>
-                       <div className="bg-white border border-teal-300 rounded p-2">
+                   <span>Estímulo Sensorial:   </span> 
+                    <select name='estimuloSensorial' 
+                            value={exercicio.estimuloSensorial} 
+                            onChange={(e: ChangeEvent<HTMLSelectElement>) => atualizarEstado(e)}
+                            className="bg-white border border-teal-700 rounded p-2">
+                       
                         <option value="">Selecione...</option>
-                        <option value="baixo">Baixo</option>
-                        <option value="medio">Médio</option>
-                        <option value="alto">Alto</option>
-                        </div>
+                        <option value="Baixo">Baixo</option>
+                        <option value="Médio">Médio</option>
+                        <option value="Alto">Alto</option>
+                        
                     </select>
                 </label>
                
@@ -211,7 +214,7 @@ function FormExercicios() {
 
                         {categorias.map((categoria) => (
                             <>
-                                <option key={categoria.id} value={categoria.id} >{categoria.descricao}</option>
+                                <option value={categoria.id} >{categoria.descricao}</option>
                             </>
                         ))}
 
