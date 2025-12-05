@@ -27,37 +27,44 @@ function CardExercicios({ exercicio }: Readonly<CardExercicioProps>) {
 			</div>
 
 			<div className="py-4">
-				{exercicio.video}
+				<video
+					src={exercicio.video}
+					autoPlay
+					muted
+					loop
+					playsInline
+					className="w-full rounded-xl max-h-60 object-cover"
+				/>
 			</div>
 
-				<div>
-                <div className="flex w-full  py-2 px-4 items-center gap-4">
-                    {/* <img
+			<div>
+				<div className="flex w-full  py-2 px-4 items-center gap-4">
+					{/* <img
                         src={exercicio.usuario?.foto}
                         className='h-12 rounded-full'
                         alt={exercicio.usuario?.nome} /> */}
-                    <h3 className='text-lg font-bold text-center uppercase text-violet-600 hover:text-violet-900'>
-                        {exercicio.nome}
-                    </h3>
-                </div>
-                <div className='p-4 '>
-                    <h4 className='text-lg font-semibold uppercase text-violet-600 hover:text-violet-900'>{exercicio.duracao} minutos</h4>
-                    <div className="mt-2 mb-4 space-y-2 justify-center align-center text-justify ">
-					<p className="text-slate-800 font-semibold ">{exercicio.descricao}</p>
-                    <p className="text-amber-200 font-extrabold text-xl">{exercicio.estimuloSensorial}</p>
-                    <p className="text-slate-800 font-semibold ">Categoria: {exercicio.categoria?.descricao}</p>
+					<h3 className='text-lg font-bold text-center uppercase text-violet-600 hover:text-violet-900'>
+						{exercicio.nome}
+					</h3>
+				</div>
+				<div className='p-4 '>
+					<h4 className='text-lg font-semibold uppercase text-violet-600 hover:text-violet-900'>{exercicio.duracao} minutos</h4>
+					<div className="mt-2 mb-4 space-y-2 justify-center align-center text-justify ">
+						<p className="text-slate-800 font-semibold ">{exercicio.descricao}</p>
+						<p className="text-amber-200 font-extrabold text-xl">{exercicio.estimuloSensorial}</p>
+						<p className="text-slate-800 font-semibold ">Categoria: {exercicio.categoria?.descricao}</p>
 					</div>
-                </div>
-            
-			{/* <div className="flex flex-wrap">
+				</div>
+
+				{/* <div className="flex flex-wrap">
 				<button
 					className="flex items-center justify-center w-full py-2  text-violet-600 hover:text-violet-900 font-semibold"
 				>
 					Exercício Completo 
 				</button>
 			</div> */}
+			</div>
 		</div>
-    </div>
 	)
 }
 
