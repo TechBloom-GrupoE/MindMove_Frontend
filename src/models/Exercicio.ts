@@ -5,6 +5,7 @@ export default interface Exercicio {
   id: number;
   nome: string;
   descricao: string;
+  video: string;
   duracao: number;
   estimuloSensorial: string;
   categoria: Categoria | null;

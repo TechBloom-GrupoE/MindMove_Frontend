@@ -27,11 +27,7 @@ function CardExercicios({ exercicio }: Readonly<CardExercicioProps>) {
 			</div>
 
 			<div className="py-4">
-				<img
-					src="https://ik.imagekit.io/kv6tr431r/Projeto%20mindmove/LongoMindMoveSemfundo.png?updatedAt=1761756153500"
-					className="mx-auto mt-1 h-44 max-w-75"
-					alt={exercicio.nome}
-				/>
+				{exercicio.video}
 			</div>
 
 				<div>
